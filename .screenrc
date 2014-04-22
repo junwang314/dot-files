@@ -1,0 +1,73 @@
+shell -/bin/bash
+startup_message off
+defutf8 on
+autodetach on
+sleep 0
+altscreen on
+nonblock on
+
+# Mouse tracking (only works for experimental build)
+mousetrack off
+bind m mousetrack off
+bind M mousetrack on
+
+# 256 colors
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce on
+
+# Use visual bell instead of speaker
+termcapinfo xterm bl@:vb@
+vbell on
+vbell_msg '* Ding-Dong!'
+vbellwait 1
+
+# Allow change of terminal title
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;Terminal\007'
+# Allow native scrolling (watch for broken output!)
+termcapinfo xterm* ti@:te@
+defscrollback 5120
+
+# Turn off flow control
+# Note: for PuTTY, change [SSH]-[TTY]-[IXON] to 0
+defflow off
+bind s split
+bind S remove
+bind X only
+bindkey "^s" copy
+bindkey "^q" fit
+
+# Navigate regions and windows with Ctrl-arrows
+bindkey "^[[D" prev
+bindkey "^[[C" next
+bindkey "^[[A" focus prev
+bindkey "^[[B" focus next
+# For classic screen
+#bindkey "^[[A" focus up
+#bindkey "^[[B" focus down
+bindkey "^[[1;5D" prev
+bindkey "^[[1;5C" next
+bindkey "^[[1;5A" focus prev
+bindkey "^[[1;5B" focus next
+# For classic screen
+#bindkey "^[[1;5A" focus up
+#bindkey "^[[1;5B" focus down
+# Resize regions and windows with Alt-arrows
+bindkey "^[^[OD" resize -h -1
+bindkey "^[^[OC" resize -h +1
+bindkey "^[^[OA" resize -v +1
+bindkey "^[^[OB" resize -v -1
+bindkey "^[[1;3D" resize -h -1
+bindkey "^[[1;3C" resize -h +1
+bindkey "^[[1;3A" resize -v +1
+bindkey "^[[1;3B" resize -v -1
+
+#nethack on
+#allpartial on
+
+#caption always
+caption string "%{= Kw} %=%t%= %{-}"
+hardstatus alwayslastline
+hardstatus string '%{= kd}%{g}%H %{G}%l%{K}| %?%{R}%-w%?%{Kw}%n %t%?%{kR}%+w%:%{kk}*%?%= %{K}|%{B}%LD %{b}%c:%s'
+msgwait 1
+bindkey "^`" lastmsg
